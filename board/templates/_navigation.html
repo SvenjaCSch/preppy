@@ -1,0 +1,16 @@
+<nav>
+    <ul>
+      <li><a href="{{ url_for('pages.home') }}">Home</a></li>
+      <li><a href="{{ url_for('pages.about') }}">About</a></li>
+      {% if not current_user.is_authenticated %}
+      <li><a href="{{ url_for('auth.login') }}">Login</a></li>
+      <li><a href="{{ url_for('auth.signup') }}">SignUp</a></li>
+      {% endif %}
+      {% if current_user.is_authenticated %}
+      <li><a href="{{ url_for('student.landing') }}">Landing</a></li>
+      <li><a href="{{ url_for('pages.profile') }}">Profile</a></li>
+      <li><a href="{{ url_for('auth.logout') }}">Logout</a></li>
+      {% endif %}
+    </ul>
+  </nav>
+  

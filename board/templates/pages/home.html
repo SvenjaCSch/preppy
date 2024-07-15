@@ -1,0 +1,20 @@
+{% extends 'base.html' %}
+
+{% block header %}
+  <h2>{% block title %}Home{% endblock title %}</h2>
+{% endblock header %}
+
+{% block content %}
+<div class="main-content">
+    <div class="option student">
+        <h2>Student?</h2>
+        <p>Start preparing <span class="highlight">now</span></p>
+        <button><a href="{{ url_for('auth.login') }}">Login</a></button>
+    </div>
+    <div class="option teacher">
+        <h2>Teacher?</h2>
+        <p>Upload your content <span class="highlight">now</span></p>
+        <button>Login</button>
+    </div>
+</div>
+{% endblock content %}

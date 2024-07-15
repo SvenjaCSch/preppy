@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Preppy - {% block title %}{% endblock title %}</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='preppy.css') }}">
+</head>
+
+<body>
+    <header>
+      {% include("_navigation.html") %}
+        <div class="header-content">
+          {% if not current_user.is_authenticated %}
+          <a href="{{ url_for('pages.home') }}"><img src="{{ url_for('static', filename='Logo.png') }}"alt="Graduation Cap Icon" class="graduation-icon"></a>
+          {% endif %}
+          {% if current_user.is_authenticated %}
+          </div><a href="{{ url_for('student.landing') }}"><img src="{{ url_for('static', filename='Logo.png') }}"alt="Graduation Cap Icon" class="graduation-icon"></a>
+          {% endif %}
+    </header>
+<section>
+  <main>
+    {% block content %}<p>No messages.</p>{% endblock content %}
+  </main>
+</section>
+<footer>
+    <p><a href="{{ url_for('pages.about') }}">About</a></p>
+</footer>
+</body>
+</html>
