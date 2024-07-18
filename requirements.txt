@@ -1,0 +1,16 @@
+accelerate==0.32.1
+click==8.1.7
+Flask==3.0.3
+Flask_Login==0.6.3
+flask_sqlalchemy==3.1.1
+huggingface-hub==0.23.5
+langchain==0.2.8
+langchain_community==0.2.7
+pipreqs==0.5.0
+python-dotenv==1.0.1
+SQLAlchemy==2.0.31
+tokenizers==0.19.1
+torch==2.3.1+cu118
+torchaudio==2.3.1+cu118
+torchvision==0.18.1+cu118
+Werkzeug==3.0.3
