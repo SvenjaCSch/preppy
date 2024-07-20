@@ -12,11 +12,37 @@
       {% include("_navigation.html") %}
         <div class="header-content">
           {% if not current_user.is_authenticated %}
-          <a href="{{ url_for('pages.home') }}"><img src="{{ url_for('static', filename='Logo.png') }}"alt="Graduation Cap Icon" class="graduation-icon"></a>
+          <a href="{{ url_for('pages.home') }}">
+            <img src="{{ url_for('static', filename='Logo.png') }}"alt="Graduation Cap Icon" class="graduation-icon">
+          </a>
           {% endif %}
           {% if current_user.is_authenticated %}
-          </div><a href="{{ url_for('student.landing') }}"><img src="{{ url_for('static', filename='Logo.png') }}"alt="Graduation Cap Icon" class="graduation-icon"></a>
+          <a href="{{ url_for('student.landing') }}">
+            <img src="{{ url_for('static', filename='Logo.png') }}"alt="Graduation Cap Icon" class="graduation-icon"></a>
+          </div>
           {% endif %}
+          {% if current_route != 'pages.home' %}
+            <div class="myBtnhome">
+                <a href="{{ url_for('pages.home') }}">
+                    <img src="{{ url_for('static', filename='house-chimney.png') }}" alt="Home" class="icon">
+                </a>
+            </div>
+            {% endif %}
+            {% if current_route != 'home' %}
+            {% if previous_url and is_authenticated %}
+            <div class="myBtnback">
+                <a href="{{ previous_url }}">
+                    <img src="{{ url_for('static', filename='arrow-circle-left.png') }}" alt="Back" class="icon">
+                </a>
+            </div>
+            {% elif not is_authenticated %}
+            <div class="myBtnback">
+                <a href="{{ url_for('pages.home') }}">
+                    <img src="{{ url_for('static', filename='arrow-circle-left.png') }}" alt="Back" class="icon">
+                </a>
+            </div>
+            {% endif %}
+        {% endif %}
     </header>
 <section>
   <main>
@@ -25,6 +51,30 @@
 </section>
 <footer>
     <p><a href="{{ url_for('pages.about') }}">About</a></p>
+    <button onclick="topFunction()" id="myBtn" title="Go to top">
+      <img src="{{ url_for('static', filename='arrow-circle-up.png') }}"alt="Top Arrow Icon", class="icon">
+    </button>
+    <script>
+      // Get the button
+      let mybutton = document.getElementById("myBtn");
+      
+      // When the user scrolls down 20px from the top of the document, show the button
+      window.onscroll = function() {scrollFunction()};
+      
+      function scrollFunction() {
+        if (document.body.scrollTop > 20 || document.documentElement.scrollTop > 20) {
+          mybutton.style.display = "block";
+        } else {
+          mybutton.style.display = "none";
+        }
+      }
+      
+      // When the user clicks on the button, scroll to the top of the document
+      function topFunction() {
+        document.body.scrollTop = 0;
+        document.documentElement.scrollTop = 0;
+      }
+      </script>
 </footer>
 </body>
 </html>

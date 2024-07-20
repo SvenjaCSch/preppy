@@ -1,10 +1,11 @@
 import os
 from dotenv import load_dotenv
-from flask import Flask
+from flask import Flask, request, session
 from flask_sqlalchemy import SQLAlchemy
-from flask_login import LoginManager
-db = SQLAlchemy()
+from flask_login import LoginManager, current_user
 
+
+db = SQLAlchemy()
 
 from board import (
     database,
@@ -44,5 +45,19 @@ def create_app():
     def load_user(user_id):
         # since the user_id is just the primary key of our user table, use it in the query for the user
         return User.query.get(int(user_id))
+    
+    # Middleware to track previous URL
+    @app.before_request
+    def track_previous_url():
+        if 'previous_url' in session:
+            session['previous_url'] = request.url
+        else:
+            session['previous_url'] = request.url
+    
+    # Context processor to inject current route and referrer
+    @app.context_processor
+    def inject_current_route():
+        return dict(current_route=request.endpoint, previous_url=request.referrer, is_authenticated=current_user.is_authenticated)
+
     
     return app

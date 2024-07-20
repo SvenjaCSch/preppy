@@ -1,3 +1,5 @@
+/*Main*/
+
 body {
     font-family: 'Arial', sans-serif;
     margin: 0;
@@ -23,6 +25,10 @@ header {
 .graduation-icon {
     width: 120px;
     height: 120px;
+}
+.icon{
+  width: 40px;
+  height: 40px;
 }
 
 main {
@@ -128,7 +134,61 @@ a:visited {
     margin: 0 auto;
   }
 
-  /* ... */
+  #myBtn {
+    display: none;
+    position: fixed;
+    bottom: 20px;
+    right: 30px;
+    z-index: 99;
+    font-size: 18px;
+    border: none;
+    outline: none;
+    background-color: #80a89e;
+    color: white;
+    cursor: pointer;
+    padding: 15px;
+    border-radius: 4px;
+  }
+  
+  #myBtn:hover {
+    background-color: #555;
+  }
+
+  .myBtnhome {
+    position: absolute;
+    right: 20px;
+    top: 10%;
+    transform: translateY(-50%);
+}
+
+.myBtnhome a img.icon {
+    width: 30px;
+    height: 30px;
+    cursor: pointer;
+}
+
+.myBtnhome a img.icon:hover {
+    opacity: 0.8;
+}
+
+.myBtnback {
+  position: absolute;
+  right: 60px;
+  top: 10%;
+  transform: translateY(-50%);
+}
+
+.myBtnback a img.icon {
+  width: 30px;
+  height: 30px;
+  cursor: pointer;
+}
+
+.myBtnback a img.icon:hover {
+  opacity: 0.8;
+}
+
+/*Login and Signin*/
 
 article,
 form {
@@ -358,4 +418,70 @@ h3.title {
   .landing-grid {
       grid-template-columns: 1fr;
   }
+}
+
+/*Chatbot*/
+#chatbox {
+  display: flex;
+  height: 40vh; /* Full height */
+  justify-content: center;
+  align-items: center;
+  padding: 2rem;
+  margin-left: 1px;
+  margin-right: 1px;
+  width: 80vh;
+  max-width: 800;
+  margin-top: 20px;
+}
+#userInput {
+  flex: 1;
+  margin-left: auto;
+  margin-right: auto;
+  width: 90%;
+  margin-top: 60px;
+}
+#textInput {
+  flex: 1;
+  width: 100%;
+  border: none;
+  border-bottom: 3px solid black;
+  font-family: monospace;
+  font-size: 17px;
+}
+.userText {
+  color: white;
+  font-family: monospace;
+  font-size: 17px;
+  text-align: right;
+  line-height: 30px;
+}
+.userText span {
+  background-color: #808080;
+  padding: 10px;
+  border-radius: 2px;
+}
+.botText {
+  color: black;
+  font-family: monospace;
+  font-size: 17px;
+  text-align: left;
+  line-height: 30px;
+}
+.botText span {
+  background-color: #80a89e;
+  padding: 5px;
+  border-radius: 2px;
+}
+#tidbit {
+  position: absolute;
+  bottom: 0;
+  right: 0;
+  width: 300px;
+}
+.boxed {
+  margin-left: auto;
+  margin-right: auto;
+  width: 78%;
+  margin-top: 60px;
+  border: 1px solid green;
 }
