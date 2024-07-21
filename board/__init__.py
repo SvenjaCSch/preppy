@@ -31,6 +31,7 @@ def create_app():
     app.logger.debug(f"Using Database: {app.config.get('DATABASE')}")
     #app.logger.debug(f"Using SQLALCHEMY_DATABASE_URI: {app.config.get('SQLALCHEMY_DATABASE_URI')}")
     app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///db.sqlite'
+    
     db.init_app(app)
     with app.app_context():
         db.create_all()

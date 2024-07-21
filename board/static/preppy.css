@@ -420,68 +420,137 @@ h3.title {
   }
 }
 
-/*Chatbot*/
-#chatbox {
-  display: flex;
-  height: 40vh; /* Full height */
-  justify-content: center;
-  align-items: center;
-  padding: 2rem;
-  margin-left: 1px;
-  margin-right: 1px;
-  width: 80vh;
-  max-width: 800;
-  margin-top: 20px;
-}
-#userInput {
-  flex: 1;
-  margin-left: auto;
-  margin-right: auto;
-  width: 90%;
-  margin-top: 60px;
-}
-#textInput {
-  flex: 1;
-  width: 100%;
-  border: none;
-  border-bottom: 3px solid black;
-  font-family: monospace;
-  font-size: 17px;
-}
-.userText {
-  color: white;
-  font-family: monospace;
-  font-size: 17px;
-  text-align: right;
-  line-height: 30px;
-}
-.userText span {
-  background-color: #808080;
-  padding: 10px;
-  border-radius: 2px;
-}
-.botText {
-  color: black;
-  font-family: monospace;
-  font-size: 17px;
-  text-align: left;
-  line-height: 30px;
-}
-.botText span {
-  background-color: #80a89e;
-  padding: 5px;
-  border-radius: 2px;
-}
-#tidbit {
+/* Help Box */
+.help_window {
   position: absolute;
-  bottom: 0;
-  right: 0;
-  width: 300px;
+  width: calc(100% - 20px);
+  max-width: 800px;
+  height: 500px;
+  border-radius: 10px;
+  background-color: #fff;
+  left: 50%;
+  top: 50%;
+  transform: translateX(-50%) translateY(-50%);
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.15);
+  background-color: #fff;
+  overflow: hidden;
 }
-.boxed {
-  margin-left: auto;
-  margin-right: auto;
-  width: 78%;
-  margin-top: 60px;
-  border: 1px solid green;
+
+.help_top_menu {
+  background-color: #fff;
+  width: 100%;
+  padding: 20px 0 15px;
+  box-shadow: 0 1px 30px rgba(0, 0, 0, 0.1);
+}
+.help_top_menu .buttons {
+  margin: 3px 0 0 20px;
+  position: absolute;
+}
+.help_top_menu .buttons .button {
+  width: 16px;
+  height: 16px;
+  border-radius: 50%;
+  display: inline-block;
+  margin-right: 10px;
+  position: relative;
+}
+.help_top_menu .buttons .button.close {
+  background-color: #80a89e;
+}
+.help_top_menu .buttons .button.minimize {
+  background-color: #80a89e;
+}
+.help_top_menu .buttons .button.maximize {
+  background-color: #80a89e;
+}
+.help_top_menu.title {
+  text-align: center;
+  color: #80a89e;
+  font-size: 20px;
+}
+
+/*Chatbot*/
+.chatbot-container {
+  width: 60%;
+  margin: 0 auto;
+  margin-top: 50px;
+  background-color: #f9f9f9;
+  border-radius: 10px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+.chat-header {
+  background-color: #004d00;
+  padding: 10px;
+  color: white;
+  text-align: center;
+  border-top-left-radius: 10px;
+  border-top-right-radius: 10px;
+}
+.chat-content {
+  padding: 20px;
+  height: 400px;
+  overflow-y: scroll;
+  border-bottom: 1px solid #ddd;
+}
+.chat-bubble {
+  padding: 10px;
+  margin: 10px 0;
+  border-radius: 10px;
+}
+.chat-bubble.user {
+  background-color: #e0e0e0;
+  text-align: right;
+}
+.chat-bubble.bot {
+  background-color: #d1ffd1;
+  text-align: left;
+}
+.chat-input {
+  padding: 10px;
+}
+.chat-input form {
+  display: flex;
+  justify-content: space-between;
+}
+.chat-input input[type="text"] {
+  flex: 1;
+  padding: 10px;
+  border: 1px solid #ddd;
+  border-radius: 5px;
+  margin-right: 10px;
+}
+.chat-buttons {
+  display: flex;
+  gap: 10px;
+}
+.chat-buttons button {
+  padding: 10px 20px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.chat-buttons .btn.new {
+  background-color: #006400;
+  color: white;
+}
+
+.chat-buttons .btn.new:hover {
+  background-color: #004d00;
+}
+
+.chat-buttons .btn.back  {
+  background-color: #80a89e;
+}
+
+.chat-buttons .btn.back :hover {
+  background-color: #2e8b57;
+}
+
+.chat-buttons .btn.help  {
+  background-color: #80a89e;
+}
+
+.chat-buttons .btn.help :hover {
+  background-color: #2e8b57;
 }

@@ -1,42 +1,38 @@
 {% extends "base.html" %}
 
 {% block content %}
-<div>
-    <h1><b>Learning Assistant</b></h1>
-    <div class="boxed">
-        <div>
-            <div id="chatbox">
-                <p class="botText">
-                    <span>Hi! What is your question about the examination topic?</span>
-                </p>
-            </div>
-            <div id="userInput">
-                <input id="textInput" type="text" name="msg" placeholder="Message" />
-            </div>
+<!DOCTYPE html>
+<body>
+    <div class="chatbot-container">
+        <div class="chat-header">
+            <h2>Learning Assistant</h2>
         </div>
-        <script>
-            function getBotResponse() {
-                var rawText = $("#textInput").val();
-                var userHtml = '<p class="userText"><span>' + rawText + "</span></p>";
-                $("#textInput").val("");
-                $("#chatbox").append(userHtml);
-                document
-                    .getElementById("userInput")
-                    .scrollIntoView({ block: "start", behavior: "smooth" });
-                $.get("/get", { msg: rawText }).done(function (data) {
-                    var botHtml = '<p class="botText"><span>' + data + "</span></p>";
-                    $("#chatbox").append(botHtml);
-                    document
-                        .getElementById("userInput")
-                        .scrollIntoView({ block: "start", behavior: "smooth" });
-                });
-            }
-            $("#textInput").keypress(function (e) {
-                if (e.which == 13) {
-                    getBotResponse();
-                }
-            });
-        </script>
+        <div class="chat-content">
+            {% for user_input, bot_response in message %}
+                <div class="chat-bubble user">
+                    <p>{{ user_input }}</p>
+                </div>
+                <div class="chat-bubble bot">
+                    <p>{{ bot_response }}</p>
+                </div>
+            {% endfor %}
+        </div>
+        <div class="chat-input">
+            <form method="POST" action="/chatbot">
+                <input type="text" name="textbox" placeholder="Please type in your question">
+                <div class="chat-buttons">
+                    <button type="button" class="btn back">Back</button>
+                    <button type="submit" class="btn new">Send</button>
+                    <button type="button" class="btn help">Help</button>
+                </div>
+            </form>
+        </div>
     </div>
-</div>
+<script>
+    document.getElementById("current_date").innerHTML = Date();
+</script>
+</body>
+</html>
+
+
 {% endblock %}
