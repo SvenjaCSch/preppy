@@ -66,3 +66,5 @@ For the chatbot the first idea was to use llama 3 with ollama so the server is l
 - https://pythonspot.com/login-authentication-with-flask/
 - https://realpython.com/flask-project/
 - https://www.digitalocean.com/community/tutorials/how-to-add-authentication-to-your-app-with-flask-login
+- https://medium.com/@abed63/flask-application-with-openai-chatgpt-integration-tutorial-958588ac6bdf
+- ChatGPT for creating the HTML and CSS components from the Figma input
