@@ -560,20 +560,20 @@ h3.title {
   cursor: pointer;
 }
 
-.chat-buttons .btn.new {
+.chat-buttons .btn.submit {
   background-color: #006400;
   color: white;
 }
 
-.chat-buttons .btn.new:hover {
+.chat-buttons .btn.submit:hover {
   background-color: #004d00;
 }
 
-.chat-buttons .btn.back  {
+.chat-buttons .btn.new  {
   background-color: #80a89e;
 }
 
-.chat-buttons .btn.back:hover {
+.chat-buttons .btn.new:hover {
   background-color: #2e8b57;
 }
 

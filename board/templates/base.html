@@ -4,7 +4,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Preppy - {% block title %}{% endblock title %}</title>
-  <link rel="stylesheet" href="{{ url_for('static', filename='preppy.css') }}">
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/preppy.css') }}">
 </head>
 
 <body>
@@ -13,18 +13,18 @@
         <div class="header-content">
           {% if not current_user.is_authenticated %}
           <a href="{{ url_for('pages.home') }}">
-            <img src="{{ url_for('static', filename='Logo.png') }}"alt="Graduation Cap Icon" class="graduation-icon">
+            <img src="{{ url_for('static', filename='images/logo.png') }}"alt="Graduation Cap Icon" class="graduation-icon">
           </a>
           {% endif %}
           {% if current_user.is_authenticated %}
           <a href="{{ url_for('student.landing') }}">
-            <img src="{{ url_for('static', filename='Logo.png') }}"alt="Graduation Cap Icon" class="graduation-icon"></a>
+            <img src="{{ url_for('static', filename='images/Logo.png') }}"alt="Graduation Cap Icon" class="graduation-icon"></a>
           </div>
           {% endif %}
           {% if current_route != 'pages.home' %}
             <div class="myBtnhome">
                 <a href="{{ url_for('pages.home') }}">
-                    <img src="{{ url_for('static', filename='house-chimney.png') }}" alt="Home" class="icon">
+                    <img src="{{ url_for('static', filename='images/house-chimney.png') }}" alt="Home" class="icon">
                 </a>
             </div>
             {% endif %}
@@ -32,13 +32,13 @@
             {% if previous_url and is_authenticated %}
             <div class="myBtnback">
                 <a href="{{ previous_url }}">
-                    <img src="{{ url_for('static', filename='arrow-circle-left.png') }}" alt="Back" class="icon">
+                    <img src="{{ url_for('static', filename='images/arrow-circle-left.png') }}" alt="Back" class="icon">
                 </a>
             </div>
             {% elif not is_authenticated %}
             <div class="myBtnback">
                 <a href="{{ url_for('pages.home') }}">
-                    <img src="{{ url_for('static', filename='arrow-circle-left.png') }}" alt="Back" class="icon">
+                    <img src="{{ url_for('static', filename='images/arrow-circle-left.png') }}" alt="Back" class="icon">
                 </a>
             </div>
             {% endif %}
@@ -52,7 +52,7 @@
 <footer>
     <p><a href="{{ url_for('pages.about') }}">About</a></p>
     <button onclick="topFunction()" id="myBtn" title="Go to top">
-      <img src="{{ url_for('static', filename='arrow-circle-up.png') }}"alt="Top Arrow Icon", class="icon">
+      <img src="{{ url_for('static', filename='images/arrow-circle-up.png') }}"alt="Top Arrow Icon", class="icon">
     </button>
     <script src="{{ url_for('static', filename='js/base.js') }}"></script>
 </footer>
