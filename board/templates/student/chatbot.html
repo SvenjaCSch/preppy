@@ -23,14 +23,25 @@
                 <div class="chat-buttons">
                     <button type="button" class="btn back">Back</button>
                     <button type="submit" class="btn new">Send</button>
-                    <button type="button" class="btn help">Help</button>
+                    <button type="button" class="btn help" onclick="openHelpPopup()">Help</button>
                 </div>
             </form>
         </div>
     </div>
-<script>
-    document.getElementById("current_date").innerHTML = Date();
-</script>
+    <!-- Help Popup -->
+    <div id="helpPopup" class="help_window" style="display:none">
+        <div class="help_top_menu">
+            <div class="title">Help Learning Assistant</div>
+        </div>
+        <div class="help_content">
+            <p>This is an AI generated Learning Assistant.</p>
+            <p>You can ask questions to enhance your knowledge and your learning experience.</p>  
+        </div>
+        <div class="help_bottom_menu">
+            <button class="btn new" onclick="closeHelpPopup()">Close</button>
+        </div>
+    </div>
+   <script src="{{ url_for('static', filename='js/chatbot.js') }}"></script>
 </body>
 </html>
 
