@@ -78,6 +78,49 @@ For the chatbot the first idea was to use llama 3 with ollama so the server is l
     -[x] learning assistent
     -[ ] flashcards
 
+The folder are structured as showed:
+ ┣ 📂board
+ ┃ ┣ 📂static
+ ┃ ┃ ┣ 📂css
+ ┃ ┃ ┃ ┣ 📜preppy.css
+ ┃ ┃ ┃ ┗ 📜styles.css
+ ┃ ┃ ┣ 📂images
+ ┃ ┃ ┃ ┣ 📜arrow-circle-left.png
+ ┃ ┃ ┃ ┣ 📜arrow-circle-up.png
+ ┃ ┃ ┃ ┣ 📜Background_header.png
+ ┃ ┃ ┃ ┣ 📜Backimage.png
+ ┃ ┃ ┃ ┣ 📜house-chimney.png
+ ┃ ┃ ┃ ┣ 📜Login Student.png
+ ┃ ┃ ┃ ┣ 📜Logo.png
+ ┃ ┃ ┃ ┣ 📜Main Page.png
+ ┃ ┃ ┃ ┣ 📜Students Flashcards.png
+ ┃ ┃ ┃ ┗ 📜Students Landing Page.png
+ ┃ ┃ ┗ 📂js
+ ┃ ┃ ┃ ┣ 📜base.js
+ ┃ ┃ ┃ ┗ 📜chatbot.js
+ ┃ ┣ 📂templates
+ ┃ ┃ ┣ 📂auth
+ ┃ ┃ ┃ ┣ 📜index.html
+ ┃ ┃ ┃ ┣ 📜login.html
+ ┃ ┃ ┃ ┣ 📜login2.html
+ ┃ ┃ ┃ ┗ 📜signup.html
+ ┃ ┃ ┣ 📂errors
+ ┃ ┃ ┃ ┗ 📜404.html
+ ┃ ┃ ┣ 📂pages
+ ┃ ┃ ┃ ┣ 📜about.html
+ ┃ ┃ ┃ ┣ 📜home.html
+ ┃ ┃ ┃ ┗ 📜profile.html
+ ┃ ┃ ┣ 📂student
+ ┃ ┃ ┃ ┣ 📜chatbot.html
+ ┃ ┃ ┃ ┗ 📜landing.html
+ ┃ ┃ ┣ 📜base.html
+ ┃ ┃ ┗ 📜_navigation.html
+ ┣ 📜.env
+ ┣ 📜.gitignore
+ ┣ 📜README.md
+ ┣ 📜requirements.txt
+ ┗ 📜run.py
+ 
 ## Limitations
 ## Future Work
 ## Bibliography
