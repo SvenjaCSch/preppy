@@ -51,7 +51,7 @@ The prototype includes following pages:
     - mockup evaluation
     - learning assistent
     - flashcards
-Markup : ![picture alt](board\static\Main Page.png "Figma Main page")
+Markup : ![picture alt](board/static/image/Main Page.png "Figma Main page")
 
 ### Implementation function on Flask
 So far the focus of the first draft is to implement a web-chatbot, that can be accessed for the students, when they log in. Therefore the first implemented pages are the following: main, login, signup, students landingpage and chatbot page. Furthermore a about the application page is being installed. 
@@ -120,7 +120,7 @@ The folder are structured as showed:
  ┣ 📜README.md
  ┣ 📜requirements.txt
  ┗ 📜run.py
- 
+
 ## Limitations
 ## Future Work
 ## Bibliography
