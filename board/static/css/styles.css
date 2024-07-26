@@ -177,7 +177,7 @@ a:visited {
   }
   
   #myBtn:hover {
-    background-color: #555;
+    background-color: #d2ede6;
   }
 
   .myBtnhome {
@@ -192,7 +192,7 @@ a:visited {
 }
 
 .myBtnhome a img.icon:hover {
-    opacity: 0.8;
+  background-color: #d2ede6;
 }
 
 .myBtnLogout {
@@ -207,7 +207,7 @@ a:visited {
 }
 
 .myBtnLogout a img.icon:hover {
-  opacity: 0.8;
+  background-color: #d2ede6;
 }
 
 .myBtnback {
@@ -222,7 +222,7 @@ a:visited {
 }
 
 .myBtnback a img.icon:hover {
-  opacity: 0.8;
+  background-color: #d2ede6;
 }
 
 /*Login and Signin*/
