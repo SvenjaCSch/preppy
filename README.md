@@ -51,75 +51,75 @@ The prototype includes following pages:
     - mockup evaluation
     - learning assistent
     - flashcards
-Markup : ![picture alt](board/static/image/Main Page.png "Figma Main page")
+Markup : ![picture alt](board/static/images/Main_Page.png "Figma Main page")
 
 ### Implementation function on Flask
 So far the focus of the first draft is to implement a web-chatbot, that can be accessed for the students, when they log in. Therefore the first implemented pages are the following: main, login, signup, students landingpage and chatbot page. Furthermore a about the application page is being installed. 
 The login and signup works via sqlite. The main programming language is python. For the web application, flask is used, implementating both html and css. 
 For the chatbot the first idea was to use llama 3 with ollama so the server is locally. This can increase the privacy of the application. Furthermore Llama can be used without payment. Unfurtunatelly the fuctionallity was to slow. Next idea was to use llama 2 with a huggingface finetuned model. Nonetheless the kernel crashed. Next idea will be to use a OpenAI API. 
--[x] main
--[x] about
--[ ] teachers pages
-    -[ ] login
-    -[ ] signup
-    -[ ] profile
-    -[ ] landing page
-    -[ ] course material
-    -[ ] uploading page
-    -[ ] evaluation page
--[x] students pages
-    -[x] login
-    -[x] signup
-    -[x] profile
-    -[x] landing page
-    -[ ] course material
-    -[ ] mockup exam
-    -[ ] mockup evaluation
-    -[x] learning assistent
-    -[ ] flashcards
+- [x] main
+- [x] about
+- [ ] teachers pages
+    - [ ] login
+    - [ ] signup
+    - [ ] profile
+    - [ ] landing page
+    - [ ] course material
+    - [ ] uploading page
+    - [ ] evaluation page
+- [x] students pages
+    - [x] login
+    - [x] signup
+    - [x] profile
+    - [x] landing page
+    - [ ] course material
+    - [ ] mockup exam
+    - [ ] mockup evaluation
+    - [x] learning assistent
+    - [ ] flashcards
 
 The folder are structured as showed:
- ┣ 📂board
- ┃ ┣ 📂static
- ┃ ┃ ┣ 📂css
- ┃ ┃ ┃ ┣ 📜preppy.css
- ┃ ┃ ┃ ┗ 📜styles.css
- ┃ ┃ ┣ 📂images
- ┃ ┃ ┃ ┣ 📜arrow-circle-left.png
- ┃ ┃ ┃ ┣ 📜arrow-circle-up.png
- ┃ ┃ ┃ ┣ 📜Background_header.png
- ┃ ┃ ┃ ┣ 📜Backimage.png
- ┃ ┃ ┃ ┣ 📜house-chimney.png
- ┃ ┃ ┃ ┣ 📜Login Student.png
- ┃ ┃ ┃ ┣ 📜Logo.png
- ┃ ┃ ┃ ┣ 📜Main Page.png
- ┃ ┃ ┃ ┣ 📜Students Flashcards.png
- ┃ ┃ ┃ ┗ 📜Students Landing Page.png
- ┃ ┃ ┗ 📂js
- ┃ ┃ ┃ ┣ 📜base.js
- ┃ ┃ ┃ ┗ 📜chatbot.js
- ┃ ┣ 📂templates
- ┃ ┃ ┣ 📂auth
- ┃ ┃ ┃ ┣ 📜index.html
- ┃ ┃ ┃ ┣ 📜login.html
- ┃ ┃ ┃ ┣ 📜login2.html
- ┃ ┃ ┃ ┗ 📜signup.html
- ┃ ┃ ┣ 📂errors
- ┃ ┃ ┃ ┗ 📜404.html
- ┃ ┃ ┣ 📂pages
- ┃ ┃ ┃ ┣ 📜about.html
- ┃ ┃ ┃ ┣ 📜home.html
- ┃ ┃ ┃ ┗ 📜profile.html
- ┃ ┃ ┣ 📂student
- ┃ ┃ ┃ ┣ 📜chatbot.html
- ┃ ┃ ┃ ┗ 📜landing.html
- ┃ ┃ ┣ 📜base.html
- ┃ ┃ ┗ 📜_navigation.html
- ┣ 📜.env
- ┣ 📜.gitignore
- ┣ 📜README.md
- ┣ 📜requirements.txt
- ┗ 📜run.py
+- ┣ 📂board
+- ┃ ┣ 📂static
+- ┃ ┃ ┣ 📂css
+- ┃ ┃ ┃ ┣ 📜preppy.css
+- ┃ ┃ ┃ ┗ 📜styles.css
+- ┃ ┃ ┣ 📂images
+- ┃ ┃ ┃ ┣ 📜arrow-circle-left.png
+- ┃ ┃ ┃ ┣ 📜arrow-circle-up.png
+- ┃ ┃ ┃ ┣ 📜Background_header.png
+- ┃ ┃ ┃ ┣ 📜Backimage.png
+- ┃ ┃ ┃ ┣ 📜house-chimney.png
+- ┃ ┃ ┃ ┣ 📜Login Student.png
+- ┃ ┃ ┃ ┣ 📜Logo.png
+- ┃ ┃ ┃ ┣ 📜Main Page.png
+- ┃ ┃ ┃ ┣ 📜Students Flashcards.png
+- ┃ ┃ ┃ ┗ 📜Students Landing Page.png
+- ┃ ┃ ┗ 📂js
+- ┃ ┃ ┃ ┣ 📜base.js
+- ┃ ┃ ┃ ┗ 📜chatbot.js
+- ┃ ┣ 📂templates
+- ┃ ┃ ┣ 📂auth
+- ┃ ┃ ┃ ┣ 📜index.html
+- ┃ ┃ ┃ ┣ 📜login.html
+- ┃ ┃ ┃ ┣ 📜login2.html
+- ┃ ┃ ┃ ┗ 📜signup.html
+- ┃ ┃ ┣ 📂errors
+- ┃ ┃ ┃ ┗ 📜404.html
+- ┃ ┃ ┣ 📂pages
+- ┃ ┃ ┃ ┣ 📜about.html
+- ┃ ┃ ┃ ┣ 📜home.html
+- ┃ ┃ ┃ ┗ 📜profile.html
+- ┃ ┃ ┣ 📂student
+- ┃ ┃ ┃ ┣ 📜chatbot.html
+- ┃ ┃ ┃ ┗ 📜landing.html
+- ┃ ┃ ┣ 📜base.html
+- ┃ ┃ ┗ 📜_navigation.html
+- ┣ 📜.env
+- ┣ 📜.gitignore
+- ┣ 📜README.md
+- ┣ 📜requirements.txt
+- ┗ 📜run.py
 
 ## Limitations
 ## Future Work
