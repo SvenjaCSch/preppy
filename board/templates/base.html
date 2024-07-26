@@ -10,7 +10,6 @@
 
 <body>
     <header>
-      {% include("_navigation.html") %}
         <div class="header-content">
           {% if not current_user.is_authenticated %}
           <a href="{{ url_for('pages.home') }}">
@@ -20,30 +19,32 @@
           {% if current_user.is_authenticated %}
           <a href="{{ url_for('student.landing') }}">
             <img src="{{ url_for('static', filename='images/Logo.png') }}"alt="Graduation Cap Icon" class="graduation-icon"></a>
+            {% endif %}
           </div>
-          {% endif %}
-          {% if current_route != 'pages.home' %}
+         
             <div class="myBtnhome">
+              {% if not current_user.is_authenticated %}
                 <a href="{{ url_for('pages.home') }}">
                     <img src="{{ url_for('static', filename='images/house-chimney.png') }}" alt="Home" class="icon">
                 </a>
+              {% endif %}
+              {% if current_user.is_authenticated %}
+              <a href="{{ url_for('student.landing') }}">
+                  <img src="{{ url_for('static', filename='images/house-chimney.png') }}" alt="Home" class="icon">
+              </a>
+              {% endif %}
             </div>
-            {% endif %}
-            {% if current_route != 'home' %}
-            {% if previous_url and is_authenticated %}
+            {% if current_user.is_authenticated %}
             <div class="myBtnback">
                 <a href="{{ previous_url }}">
                     <img src="{{ url_for('static', filename='images/arrow-circle-left.png') }}" alt="Back" class="icon">
                 </a>
             </div>
-            {% elif not is_authenticated %}
-            <div class="myBtnback">
-                <a href="{{ url_for('pages.home') }}">
-                    <img src="{{ url_for('static', filename='images/arrow-circle-left.png') }}" alt="Back" class="icon">
-                </a>
-            </div>
             {% endif %}
-        {% endif %}
+        <div class="myBtnLogout">
+          <a href="{{ url_for('auth.logout') }}"><img src="{{ url_for('static', filename='images/icons8-logout-50.png') }}" alt="Logout", class="icon">
+          </a>
+        </div>
     </header>
 <section>
   <main>

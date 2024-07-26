@@ -31,7 +31,8 @@ body::-webkit-scrollbar-thumb {
 
 header {
     background-color: #80a89e;
-    padding: 2rem;
+    padding: 0.5rem;
+    height: 130px;
 }
 
 
@@ -45,9 +46,13 @@ header {
     width: 120px;
     height: 120px;
 }
+.graduation-icon:hover{
+  opacity: 0.8;
+}
+
 .icon{
-  width: 40px;
-  height: 40px;
+  width: 30px;
+  height: 30px;
 }
 
 main {
@@ -183,8 +188,6 @@ a:visited {
 }
 
 .myBtnhome a img.icon {
-    width: 30px;
-    height: 30px;
     cursor: pointer;
 }
 
@@ -192,16 +195,29 @@ a:visited {
     opacity: 0.8;
 }
 
-.myBtnback {
+.myBtnLogout {
   position: absolute;
   right: 60px;
   top: 10%;
   transform: translateY(-50%);
 }
 
+.myBtnLogout a img.icon {
+  cursor: pointer;
+}
+
+.myBtnLogout a img.icon:hover {
+  opacity: 0.8;
+}
+
+.myBtnback {
+  position: absolute;
+  right: 100px;
+  top: 10%;
+  transform: translateY(-50%);
+}
+
 .myBtnback a img.icon {
-  width: 30px;
-  height: 30px;
   cursor: pointer;
 }
 
