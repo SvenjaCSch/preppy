@@ -1,6 +1,6 @@
 import os
 from dotenv import load_dotenv
-from flask import Flask, request, session
+from flask import Flask, request, session, current_app
 from flask_sqlalchemy import SQLAlchemy
 from flask_login import LoginManager, current_user
 
@@ -15,7 +15,7 @@ def create_app():
     app.config.from_prefixed_env()
     app.logger.setLevel("INFO")
 
-    # Set the SQLAlchemy database URI from the environment variable
+    # Set the SQLALCHEMY database URI from the environment variable
     app.config['SQLALCHEMY_DATABASE_URI'] = os.getenv('FLASK_SQLALCHEMY_DATABASE_URI')
 
     # Optionally log the database URI for debugging
@@ -27,6 +27,10 @@ def create_app():
     # Import the database module here to avoid circular imports
     from . import database
     database.init_app(app)
+
+    # Create the upload directory
+    with app.app_context():
+        os.makedirs(os.path.join(current_app.instance_path, 'pdfs'), exist_ok=True)
 
     # Register blueprints
     from . import errors, pages, auth, student, teacher

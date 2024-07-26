@@ -1,0 +1,14 @@
+{% extends 'base.html' %}
+
+{% block content %}
+ 
+<form action = "/upload" method="post" enctype="multipart/form-data">
+    <label for="file"><b>Upload Course Material</b></label>
+    <input id="file" name="file" type="file" />
+    <button>Upload</button>
+    <div class="progress-bar">
+        <div id="progress"></div>
+    </div>
+</form>
+<script src="{{ url_for('static', filename='js/upload.js') }}"></script>
+{% endblock %}

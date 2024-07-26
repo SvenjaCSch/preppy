@@ -600,3 +600,16 @@ h3.title {
 .chat-buttons .btn.help:hover {
   background-color: #2e8b57;
 }
+
+.progress-bar {
+  width: 100%;
+  height: 20px;
+  background-color: #ddd;
+}
+#progress {
+  width: 0%;
+  height: 100%;
+  background-color: #4CAF50;
+}
+
+
