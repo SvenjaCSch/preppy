@@ -1,4 +1,4 @@
-from flask import Blueprint, render_template, request, jsonify
+from flask import Blueprint, render_template, request, jsonify, redirect, url_for
 from flask_login import login_required, current_user
 from openai import OpenAI
 import openai
@@ -12,10 +12,13 @@ client = OpenAI(
 
 history = []
 
-@bp.route("/landing")
+@bp.route('/student_landing')
 @login_required
 def landing():
+    if current_user.role != 'student':
+        return redirect(url_for('auth.login'))
     return render_template("student/landing.html", name=current_user.name)
+
 
 @bp.route("/chatbot", methods=['GET', 'POST'])
 @login_required

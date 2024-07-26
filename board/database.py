@@ -9,16 +9,14 @@ def init_app(app):
 @click.command("init-db")
 def init_db_command():
     db = get_db()
-
     with current_app.open_resource("schema.sql") as f:
         db.executescript(f.read().decode("utf-8"))
-
     click.echo("You successfully initialized the database!")
 
 def get_db():
     if "db" not in g:
         g.db = sqlite3.connect(
-            current_app.config["DATABASE"],
+            current_app.config["SQLALCHEMY_DATABASE_URI"].replace('sqlite:///', ''),
             detect_types=sqlite3.PARSE_DECLTYPES,
         )
         g.db.row_factory = sqlite3.Row

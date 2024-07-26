@@ -3,8 +3,8 @@
 {% block content %}
 <div class="main-content">
     <div class="column is-4 is-offset-4">
-        <h3 class="title">Login</h3>
         <div class="box">
+            <h3 class="title">Login</h3>
             {% with messages = get_flashed_messages() %}
             {% if messages %}
                 <div class="notification is-danger">
@@ -24,20 +24,14 @@
                         <input class="input is-large" type="password" name="password" placeholder="Your Password">
                     </div>
                 </div>
-                <div class="field">
-                    <label class="checkbox">
-                        <input type="checkbox" name="remember">
-                        Remember me
-                    </label>
-                </div>
                 <div class="buttons3">
                     <button type="button" class="button cancel"><a href="{{ url_for('pages.home') }}">Cancel</a></button>
                     <button type="submit" class="button is-info">Login</button>
-                    <button type="button" class="button register"><a href="{{ url_for('auth.signup') }}">Register</a></button>
+    
                 </div>
             </form>
+            <a href="#">forgot password?</a>
         </div>
-        <a href="#">forgot password?</a>
     </div>
 </div>
 {% endblock %}

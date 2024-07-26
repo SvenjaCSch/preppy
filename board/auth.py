@@ -12,47 +12,75 @@ def login():
 
 @auth.route('/login', methods=['POST'])
 def login_post():
-    # login code goes here
     email = request.form.get('email')
     password = request.form.get('password')
-    remember = True if request.form.get('remember') else False
+    remember = request.form.get('remember', 'false').lower() == 'true'
+
+    #flash(f"Login attempt for email: {email}")
+
+    # Fetch the user based on the email
     user = User.query.filter_by(email=email).first()
 
-    # check if the user actually exists
-    # take the user-supplied password, hash it, and compare it to the hashed password in the database
-    if not user or not check_password_hash(user.password, password):
+    # Check if user exists
+    if not user:
+        flash(f"No user found with email: {email}")
         flash('Please check your login details and try again.')
-        return redirect(url_for('auth.login')) # if the user doesn't exist or password is wrong, reload the page
+        return redirect(url_for('auth.login'))
 
-    # if the above check passes, then we know the user has the right credentials
+    # Check if password matches
+    if not check_password_hash(user.password, password):
+        flash("Password check failed.")
+        flash('Please check your login details and try again.')
+        return redirect(url_for('auth.login'))
+
+    # Log the user in
     login_user(user, remember=remember)
-    return redirect(url_for('student.landing'))
+    #flash(f"User {email} logged in successfully.")
 
+    # Debugging: Check user role
+    flash(f"User role: {user.role}")  # This will display the user role
+
+    # Ensure role is processed correctly
+    user_role = user.role.strip().lower()
+    flash(f"Processed user role: {user_role}")
+
+    # Redirect based on user role
+    if user_role == 'student':
+        flash("Redirecting to student landing page.")
+        return redirect(url_for('student.landing'))  # Redirect to student landing page
+    elif user_role == 'teacher':
+        flash("Redirecting to teacher landing page.")
+        return redirect(url_for('teacher.landing'))  # Redirect to teacher landing page
+    else:
+        flash("Unknown role for user, redirecting to login.")
+        return redirect(url_for('auth.login'))
+
+    
 @auth.route('/signup')
 def signup():
     return render_template('auth/signup.html')
 
 @auth.route('/signup', methods=['POST'])
 def signup_post():
-    # code to validate and add user to database goes here
     email = request.form.get('email')
     name = request.form.get('name')
     password = request.form.get('password')
+    role = request.form.get('role')
 
-    user = User.query.filter_by(email=email).first() # if this returns a user, then the email already exists in database
+    user = User.query.filter_by(email=email).first()
 
-    if user: # if a user is found, we want to redirect back to signup page so user can try again
+    if user:
         flash('Email address already exists')
         return redirect(url_for('auth.signup'))
 
-    # create a new user with the form data. Hash the password so the plaintext version isn't saved.
-    #new_user = User(email=email, name=name, password=generate_password_hash(password, method='sha256'))
-    new_user = User(email=email, name=name, password=generate_password_hash(password, method='pbkdf2:sha256'))
-    # add the new user to the database
+    new_user = User(email=email, name=name, password=generate_password_hash(password, method='pbkdf2:sha256'), role=role)
     db.session.add(new_user)
     db.session.commit()
 
+    flash(f"New user created: {email} with role: {role}")
     return redirect(url_for('auth.login'))
+
+
 
 @auth.route('/logout')
 @login_required
