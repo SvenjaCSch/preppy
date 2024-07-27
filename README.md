@@ -148,7 +148,14 @@ The folder are structured as showed:
 - ┗ 📜run.py
 
 ## Limitations
+The limit of tokens is quite small. Therefore the uploaded data has to be summarized strongly. A better way to handle that is the RAG LLM which is not used here because of the extensive use of GPU that I could not provide.
+
 ## Future Work
+For the future work, the rest of the Figma Model should be created. This includes the Mockup exam als well as the evaluation for the teacher and the students. Furthermore the profile editing and the coruse material should be created for both student and teacher.
+
+Besides that, the course system has to be installed. students should only get access to there courses. So they should get a second login with the classcode, they want and the opportunity to change the course. 
+
+Lastely in future work RAG LLM should be considered because of the big amount of special data that needs to be passed through. 
 ## Bibliography
 - https://medium.com/@AlexanderObregon/how-to-build-a-simple-chatbot-with-python-4ce0742546a1
 - https://pythonspot.com/login-authentication-with-flask/
