@@ -7,7 +7,10 @@
         <button type="submit" class="generate-btn">Generate Flashcards</button>
     </form>
     <a href="{{ url_for('student.flashcards_get') }}" class="view-flashcards">View Flashcards</a>
-    
+
+    <!-- Store flashcards data in a data attribute -->
+    <div id="flashcards" data-flashcards="{{ flashcards | tojson | safe }}" style="display:none;"></div>
+
     <div class="flashcard" id="flashcard">
         <div class="front">
             <p id="question"></p>
