@@ -59,13 +59,13 @@ The login and signup works via sqlite. The main programming language is python. 
 For the chatbot the first idea was to use llama 3 with ollama so the server is locally. This can increase the privacy of the application. Furthermore Llama can be used without payment. Unfurtunatelly the fuctionallity was to slow. Next idea was to use llama 2 with a huggingface finetuned model. Nonetheless the kernel crashed. Next idea will be to use a OpenAI API. 
 - [x] main
 - [x] about
-- [ ] teachers pages
-    - [ ] login
-    - [ ] signup
+- [x] teachers pages
+    - [x] login
+    - [x] signup
     - [ ] profile
-    - [ ] landing page
+    - [x] landing page
     - [ ] course material
-    - [ ] uploading page
+    - [x] uploading page
     - [ ] evaluation page
 - [x] students pages
     - [x] login
