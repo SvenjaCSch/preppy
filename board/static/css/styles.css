@@ -612,4 +612,71 @@ h3.title {
   background-color: #4CAF50;
 }
 
+/*flashcards*/
 
+.flashcards_container {
+  width: 600px;
+  margin: 0 auto;
+  text-align: center;
+}
+
+.generate-btn, .view-flashcards, .action-btn {
+  background-color: #80a89e; /* Button color */
+  color: white;
+  border: none;
+  padding: 10px 15px;
+  margin: 10px;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 16px;
+}
+
+.generate-btn:hover, .action-btn:hover .view-flashcards:hover {
+  background-color: #2e8b57; /* Darker shade on hover */
+}
+
+.view-flashcards {
+  display: inline-block;
+  margin-top: 20px;
+  text-decoration: none;
+  color: white;
+  font-size: 16px;
+}
+
+.flashcard {
+  perspective: 1000px; /* Perspective for 3D effect */
+  margin: 20px auto;
+  width: 100%;
+  height: 200px; /* Height of the flashcard */
+}
+
+.front, .back {
+  width: 100%;
+  height: 100%;
+  border: 1px solid #ddd;
+  border-radius: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 24px;
+  background-color: white;
+  position: absolute;
+  backface-visibility: hidden; /* Hide back side when front is visible */
+  transition: transform 0.6s; /* Smooth flip effect */
+}
+
+.back {
+  transform: rotateY(180deg); /* Rotate the back side */
+}
+
+.flashcard.flipped .front {
+  transform: rotateY(180deg); /* Rotate front when flipped */
+}
+
+.flashcard.flipped .back {
+  transform: rotateY(0); /* Show back when flipped */
+}
+
+.buttons {
+  margin-top: 20px;
+}

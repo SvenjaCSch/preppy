@@ -1,0 +1,25 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="flashcards_container">
+    <h1>Flashcards</h1>
+    <form action="{{ url_for('student.flashcards_post') }}" method="post">
+        <button type="submit" class="generate-btn">Generate Flashcards</button>
+    </form>
+    <a href="{{ url_for('student.flashcards_get') }}" class="view-flashcards">View Flashcards</a>
+    
+    <div class="flashcard" id="flashcard">
+        <div class="front">
+            <p id="question"></p>
+        </div>
+        <div class="back">
+            <p id="answer"></p>
+        </div>
+    </div>
+    <div class="buttons">
+        <button onclick="flipCard()" class="action-btn">Flip Card</button>
+        <button onclick="nextCard()" class="action-btn">Next Card</button>
+    </div>
+</div>
+<script src="/static/js/flashcards.js"></script>
+{% endblock %}

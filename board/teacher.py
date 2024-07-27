@@ -6,6 +6,8 @@ import PyPDF2
 
 bp = Blueprint("teacher", __name__)
 
+
+
 @bp.route('/teacher_landing')
 @login_required
 def landing():

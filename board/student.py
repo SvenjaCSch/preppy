@@ -30,13 +30,31 @@ except UnicodeDecodeError as e:
     print(e)
     prompt_extension = ""
 
+def generate_flashcards(text):
+    chunks = text.split('\n\n')
+    flashcards = []
+
+    for chunk in chunks:
+        prompt = f"Create a flashcard from the following text:\n\n{chunk}\n\nFlashcard:"
+        try:
+            response = client.completions.create(
+                model="text-davinci-003",  
+                prompt=prompt,  
+                max_tokens=150
+            )
+            flashcards.append(response.choices[0].text.strip())
+        except Exception as e:
+            print(f"Error generating flashcard: {e}")  
+            flashcards.append("Error generating flashcard")
+
+    return flashcards
+
 @bp.route('/student_landing')
 @login_required
 def landing():
     if current_user.role != 'student':
         return redirect(url_for('auth.login'))
     return render_template("student/landing.html", name=current_user.name)
-
 
 @bp.route("/chatbot", methods=['GET', 'POST'])
 @login_required
@@ -101,3 +119,21 @@ def get_response(question):
         # Handle other OpenAI API errors
         print(f"OpenAI API error: {e}")
         return f"OpenAI API error: {e}"
+
+@bp.route('/flashcards')
+def flashcards():
+    return render_template("student/flashcards.html")
+
+@bp.route("/flashcards", methods=['GET'])
+def flashcards_get():
+    file_path = 'instance/texts/text.txt'  # Adjust the path to your TXT file
+    text = read_file_with_multiple_encodings(file_path)[0]
+    flashcards = generate_flashcards(text)
+    return jsonify(flashcards)
+
+@bp.route("/flashcards", methods=['POST'])
+def flashcards_post():
+    file_path = 'instance/texts/text.txt'  # Adjust the path to your TXT file
+    text = read_file_with_multiple_encodings(file_path)[0]
+    flashcards = generate_flashcards(text)
+    return render_template("student/flashcards.html", flashcards=flashcards)

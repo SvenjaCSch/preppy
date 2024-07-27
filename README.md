@@ -130,4 +130,4 @@ The folder are structured as showed:
 - https://www.digitalocean.com/community/tutorials/how-to-add-authentication-to-your-app-with-flask-login
 - https://medium.com/@abed63/flask-application-with-openai-chatgpt-integration-tutorial-958588ac6bdf
 - https://pythonbasics.org/flask-upload-file/
-- ChatGPT for creating the HTML and CSS components from the Figma input
+- ChatGPT for creating the HTML and CSS components from the Figma input as well as for the python part and the javascript file for the flashcards
