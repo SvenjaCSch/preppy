@@ -5,8 +5,10 @@ An AI driven exam preparation tool for students in the age between 12-18.Teacher
 ### Motivation
 
 #### Advantages for teachers
+The teacher don't need to create specific exam preparation files. The slides from the course are enough. The teacher gets a anonymous overview of the understanding of the students.
 
 #### Advantages for students
+The students can use the tools to prepare for their exam with spefic content, without creating own flashcards. They can talk to a learning assitant at home, when there is no teacher around. 
 
 ### Comparision to other AI Tools 
 There are several webtools, that help the students to learn with flashcards and further material.
@@ -16,6 +18,7 @@ Quizlet is an online tool for students to create flashcards to learn the course 
 
 #### Note
 Note is an online tool where students can create pages containing informations about the course mterial, time schedules and grading systems. The students has to fill in the information by themself. 
+
 ## Functions
 
 #### teachers perspective
@@ -51,12 +54,21 @@ The prototype includes following pages:
     - mockup evaluation
     - learning assistent
     - flashcards
-Markup : ![picture alt](board/static/images/Main_Page.png "Figma Main page")
+
+The Figma prototype was created by Kimberly Sharp, Veronika Smilga and me. It show the bases for the Flask website of this Github page.
 
 ### Implementation function on Flask
-So far the focus of the first draft is to implement a web-chatbot, that can be accessed for the students, when they log in. Therefore the first implemented pages are the following: main, login, signup, students landingpage and chatbot page. Furthermore a about the application page is being installed. 
+So far the focus of the first draft is to implement a web-chatbot, that can be accessed for the students, when they log in. Therefore the first implemented pages are the following: main, login, signup, students landingpage and chatbot page. Furthermore a flashcard page, the teachers landingpage and the upload page as well as an about page is installed. 
+
 The login and signup works via sqlite. The main programming language is python. For the web application, flask is used, implementating both html and css. 
-For the chatbot the first idea was to use llama 3 with ollama so the server is locally. This can increase the privacy of the application. Furthermore Llama can be used without payment. Unfurtunatelly the fuctionallity was to slow. Next idea was to use llama 2 with a huggingface finetuned model. Nonetheless the kernel crashed. Next idea will be to use a OpenAI API. 
+
+For the login it is important that the student can signup as student and the teacher as teacher. It is not aloud to login as teacher when you are actually a student and vice versa. This is handeled via role placing in the signup-page. Therefore the signup has to be on the main page and not the login page, which differs from the initial mockup in Figma.
+
+For the chatbot the first idea was to use llama 3 with ollama so the server is locally. This can increase the privacy of the application. Furthermore Llama can be used without payment. Unfurtunatelly the fuctionallity was to slow. 
+
+Next idea was to use llama 2 with a huggingface finetuned model. Nonetheless the kernel crashed. 
+
+Now I am using a openai API with the GPT-3.5.turbo model for the chatbot, the summarization of the uploaded data and the flashcard creation. 
 - [x] main
 - [x] about
 - [x] teachers pages
@@ -79,42 +91,56 @@ For the chatbot the first idea was to use llama 3 with ollama so the server is l
     - [ ] flashcards
 
 The folder are structured as showed:
-- ┣ 📂board
-- ┃ ┣ 📂static
-- ┃ ┃ ┣ 📂css
-- ┃ ┃ ┃ ┣ 📜preppy.css
-- ┃ ┃ ┃ ┗ 📜styles.css
-- ┃ ┃ ┣ 📂images
-- ┃ ┃ ┃ ┣ 📜arrow-circle-left.png
-- ┃ ┃ ┃ ┣ 📜arrow-circle-up.png
-- ┃ ┃ ┃ ┣ 📜Background_header.png
-- ┃ ┃ ┃ ┣ 📜Backimage.png
-- ┃ ┃ ┃ ┣ 📜house-chimney.png
-- ┃ ┃ ┃ ┣ 📜Login Student.png
-- ┃ ┃ ┃ ┣ 📜Logo.png
-- ┃ ┃ ┃ ┣ 📜Main Page.png
-- ┃ ┃ ┃ ┣ 📜Students Flashcards.png
-- ┃ ┃ ┃ ┗ 📜Students Landing Page.png
-- ┃ ┃ ┗ 📂js
-- ┃ ┃ ┃ ┣ 📜base.js
-- ┃ ┃ ┃ ┗ 📜chatbot.js
-- ┃ ┣ 📂templates
-- ┃ ┃ ┣ 📂auth
-- ┃ ┃ ┃ ┣ 📜index.html
-- ┃ ┃ ┃ ┣ 📜login.html
-- ┃ ┃ ┃ ┣ 📜login2.html
-- ┃ ┃ ┃ ┗ 📜signup.html
-- ┃ ┃ ┣ 📂errors
-- ┃ ┃ ┃ ┗ 📜404.html
-- ┃ ┃ ┣ 📂pages
-- ┃ ┃ ┃ ┣ 📜about.html
-- ┃ ┃ ┃ ┣ 📜home.html
-- ┃ ┃ ┃ ┗ 📜profile.html
-- ┃ ┃ ┣ 📂student
-- ┃ ┃ ┃ ┣ 📜chatbot.html
-- ┃ ┃ ┃ ┗ 📜landing.html
-- ┃ ┃ ┣ 📜base.html
-- ┃ ┃ ┗ 📜_navigation.html
+📦board
+- ┣ 📂static
+- ┃ ┣ 📂css
+- ┃ ┃ ┗ 📜styles.css
+- ┃ ┣ 📂images
+- ┃ ┃ ┣ 📜arrow-circle-left.png
+- ┃ ┃ ┣ 📜arrow-circle-up.png
+- ┃ ┃ ┣ 📜Background_header.png
+- ┃ ┃ ┣ 📜Backimage.png
+- ┃ ┃ ┣ 📜favicon-16x16.png
+- ┃ ┃ ┣ 📜house-chimney.png
+- ┃ ┃ ┣ 📜icons8-logout-50.png
+- ┃ ┃ ┣ 📜Login Student.png
+- ┃ ┃ ┣ 📜Logo.png
+- ┃ ┃ ┣ 📜Main Page.png
+- ┃ ┃ ┣ 📜Students Flashcards.png
+- ┃ ┃ ┗ 📜Students Landing Page.png
+- ┃ ┣ 📂js
+- ┃ ┃ ┣ 📜base.js
+- ┃ ┃ ┣ 📜chatbot.js
+- ┃ ┃ ┣ 📜flashcards.js
+- ┃ ┃ ┗ 📜upload.js
+- ┣ 📂templates
+- ┃ ┣ 📂auth
+- ┃ ┃ ┣ 📜index.html
+- ┃ ┃ ┣ 📜login.html
+- ┃ ┃ ┗ 📜signup.html
+- ┃ ┣ 📂errors
+- ┃ ┃ ┗ 📜404.html
+- ┃ ┣ 📂pages
+- ┃ ┃ ┣ 📜about.html
+- ┃ ┃ ┣ 📜home.html
+- ┃ ┃ ┗ 📜profile.html
+- ┃ ┣ 📂student
+- ┃ ┃ ┣ 📜chatbot.html
+- ┃ ┃ ┣ 📜flashcards.html
+- ┃ ┃ ┗ 📜landing.html
+- ┃ ┣ 📂teacher
+- ┃ ┃ ┣ 📜landing.html
+- ┃ ┃ ┗ 📜upload.html
+- ┃ ┣ 📜base.html
+- ┣ 📜auth.py
+- ┣ 📜database.py
+- ┣ 📜errors.py
+- ┣ 📜models.py
+- ┣ 📜pages.py
+- ┣ 📜schema.sql
+- ┣ 📜student.py
+- ┣ 📜teacher.py
+- ┗ 📜__init__.py
 - ┣ 📜.env
 - ┣ 📜.gitignore
 - ┣ 📜README.md
@@ -130,4 +156,7 @@ The folder are structured as showed:
 - https://www.digitalocean.com/community/tutorials/how-to-add-authentication-to-your-app-with-flask-login
 - https://medium.com/@abed63/flask-application-with-openai-chatgpt-integration-tutorial-958588ac6bdf
 - https://pythonbasics.org/flask-upload-file/
-- ChatGPT for creating the HTML and CSS components from the Figma input as well as for the python part and the javascript file for the flashcards
+- ChatGPT Use:
+    -  creating the HTML and CSS componentsfrom the Figma input (manually finegraded)
+    - flashcards python and javascript (additioan lpart. The focus of the paper is the chatbot)
+    - chatbot error handeling
