@@ -12,6 +12,24 @@ client = OpenAI(
 
 history = []
 
+# Function to try different encodings
+def read_file_with_multiple_encodings(filepath, encodings=['utf-8', 'ISO-8859-1', 'cp1252']):
+    for encoding in encodings:
+        try:
+            with open(filepath, 'r', encoding=encoding) as file:
+                return file.read().replace('\n', ''), encoding
+        except (UnicodeDecodeError, FileNotFoundError):
+            continue
+    raise UnicodeDecodeError(f"Failed to decode file {filepath} with available encodings.")
+
+file_path = 'instance/texts/text.txt'
+try:
+    prompt_extension, used_encoding = read_file_with_multiple_encodings(file_path)
+    print(f"File {file_path} successfully read with encoding {used_encoding}")
+except UnicodeDecodeError as e:
+    print(e)
+    prompt_extension = ""
+
 @bp.route('/student_landing')
 @login_required
 def landing():
@@ -49,7 +67,7 @@ def get_response(question):
             messages=[
                 {
                     "role": "system",
-                    "content": "You are a MINT teacher for kids. You should explain in a way to make a kid understand your answer."
+                    "content": f"You are a STEM teacher for students between the age of 13 and 18. You should explain in a way to make the students understand your answer. This is the course material, the students have to learn: {prompt_extension}"
                 },
                 {
                     "role": "user",
