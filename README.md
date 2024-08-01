@@ -1,8 +1,27 @@
 # Preppy
-An AI driven exam preparation tool for students in the age between 12-18.Teacher can upload their material. The AI creates flashcards, a mockup exam and gives help as a chatbot. The Tool is webbased. 
+An AI driven exam preparation tool for students in the age between 13-16. Teacher can upload their material. The AI creates flashcards, a mockup exam and gives help as a chatbot. The Tool is webbased. 
+
+## Installation
+Make sure you clone the repository properly. After that create a virtual environment with
+´´´
+python -m venv venv
+´´´
+Get all the necessary requirements:
+´´´
+pip install -r requirements.txt
+´´´
+This repository was created under python 3.12.4. I used Visual Studio Code and installed the extensions for SQLite Viewer and SQLite by alexcuzz.
+
+To start the website, use
+´´´
+python run.py
+´´´
+You can now find the website under http://127.0.0.1:5000. Have fun!
 
 ## Introduction 
+This tool will help teachers and students within the exam preparation. I will exlain the advatages and usage of this toll as well as the fuctionallity.
 ### Motivation
+We are in a situation where es lack of a sufficient amount of teachers while the teachers not having enough time for preparing the classes. This tool gives several advantages for both, students and teachers.
 
 #### Advantages for teachers
 The teacher don't need to create specific exam preparation files. The slides from the course are enough. The teacher gets a anonymous overview of the understanding of the students.

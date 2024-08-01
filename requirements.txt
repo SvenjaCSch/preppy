@@ -1,9 +1,8 @@
 click==8.1.7
 Flask==3.0.3
-Flask_Bcrypt==1.0.1
 Flask_Login==0.6.3
-Flask_Security==3.0.0
 flask_sqlalchemy==3.1.1
-openai==1.37.0
+openai==1.37.1
+PyPDF2==3.0.1
 python-dotenv==1.0.1
 Werkzeug==3.0.3
