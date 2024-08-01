@@ -1,21 +1,36 @@
 # Preppy
 An AI driven exam preparation tool for students in the age between 13-16. Teacher can upload their material. The AI creates flashcards, a mockup exam and gives help as a chatbot. The Tool is webbased. 
 
-## Installation
+## Installation guide
+This repository was created under python 3.12.4. 
+### Python installation
+Ensure Python 3.12.4 is installed on your system. For Ubuntu:
+```bash
+sudo apt install python3.12.4
+ ```
+For MacOS:
+```bash
+brew install python@3.11
+```
+I myself used Windows and Visual Studio Code to install python. You can download VSC here:
+```bash
+https://code.visualstudio.com/download
+```
+I also installed the extensions for SQLite Viewer and SQLite by alexcuzz in VSC.
+### Dependencies
 Make sure you clone the repository properly. After that create a virtual environment with
-´´´
+```bash
 python -m venv venv
-´´´
+```
 Get all the necessary requirements:
-´´´
+```bash
 pip install -r requirements.txt
-´´´
-This repository was created under python 3.12.4. I used Visual Studio Code and installed the extensions for SQLite Viewer and SQLite by alexcuzz.
-
+```
+###Running the Project
 To start the website, use
-´´´
+```bash
 python run.py
-´´´
+```
 You can now find the website under http://127.0.0.1:5000. Have fun!
 
 ## Introduction 
