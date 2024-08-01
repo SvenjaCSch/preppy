@@ -1,4 +1,4 @@
-from flask import Blueprint, render_template, request, jsonify, redirect, url_for
+from flask import Blueprint, render_template, request, jsonify, redirect, url_for, current_app
 from flask_login import login_required, current_user
 from openai import OpenAI
 import openai
@@ -13,12 +13,16 @@ client = OpenAI(
 history = []
 
 def read_file_with_multiple_encodings(filepath, encodings=['utf-8', 'ISO-8859-1', 'cp1252']):
+    if not os.path.exists(filepath):
+        print(f"File {filepath} does not exist.")
+        return "", ""  # Return empty values if the file doesn't exist
+
     for encoding in encodings:
         try:
             with open(filepath, 'r', encoding=encoding) as file:
                 text = file.read()
 
-                # Remove headers and footers if they are in the first and last 1000 characters (you may adjust this value)
+                # Remove headers and footers if they are in the first and last 1000 characters
                 text_lines = text.split('\n')
                 text_lines = text_lines[10:-10]
 
@@ -31,17 +35,53 @@ def read_file_with_multiple_encodings(filepath, encodings=['utf-8', 'ISO-8859-1'
                     text = text[:ref_index]
 
                 return text.replace('\n', ' '), encoding
-        except (UnicodeDecodeError, FileNotFoundError):
-            continue
-    raise UnicodeDecodeError(f"Failed to decode file {filepath} with available encodings.")
+        except (UnicodeDecodeError, FileNotFoundError) as e:
+            print(f"Failed to read file {filepath} with encoding {encoding}: {e}")
+            continue  # Try the next encoding
+    raise UnicodeDecodeError(
+        "utf-8",  # encoding
+        b"",  # object (empty because we don't have the byte sequence)
+        0,  # start position
+        0,  # end position
+        f"Failed to decode file {filepath} with available encodings."
+    )
 
-file_path = 'instance/texts/text.txt'
-try:
-    prompt_extension, used_encoding = read_file_with_multiple_encodings(file_path)
-    print(f"File {file_path} successfully read with encoding {used_encoding}")
-except UnicodeDecodeError as e:
-    print(e)
-    prompt_extension = ""
+# Function to extract text from a PDF (placeholder)
+def extract_text_from_pdf(pdf_path):
+    # Implement your PDF extraction logic here
+    extracted_text = "Sample text extracted from PDF."  # Replace with actual extracted text
+    return extracted_text
+
+@bp.route('/upload_pdf', methods=['POST'])
+@login_required
+def upload_pdf():
+    if 'pdf_file' not in request.files:
+        return redirect(url_for('student.landing'))
+
+    pdf_file = request.files['pdf_file']
+
+    if pdf_file.filename == '':
+        return redirect(url_for('student.landing'))
+
+    # Save the uploaded PDF to a specific location (e.g., instance/pdfs)
+    pdf_path = os.path.join(current_app.instance_path, 'pdfs', pdf_file.filename)
+    pdf_file.save(pdf_path)
+
+    # Extract text from the PDF
+    extracted_text = extract_text_from_pdf(pdf_path)
+
+    # Specify the path to the text file
+    file_path = os.path.join(current_app.instance_path, 'texts', 'text.txt')
+
+    # After extracting text from the PDF, make sure it's valid text
+    if extracted_text:  # Assuming extracted_text is the result from your PDF processing
+        with open(file_path, 'w', encoding='utf-8') as f:
+            f.write(extracted_text)
+        print("Extracted text written to:", file_path)
+    else:
+        print("No text was extracted from the PDF.")
+
+    return redirect(url_for('student.landing'))
 
 def generate_flashcards(text):
     chunks = text.split('\n\n')
@@ -92,6 +132,10 @@ def app_response():
 
 def get_response(question):
     try:
+        # Read the prompt_extension when needed
+        file_path = os.path.join(current_app.instance_path, 'texts', 'text.txt')
+        prompt_extension, used_encoding = read_file_with_multiple_encodings(file_path)
+
         # Summarize the course material to fit within a smaller token limit
         summary_prompt = f"Summarize the following course material in a way that fits within 300 tokens:\n\n{prompt_extension}"
         summary_response = client.chat.completions.create(
@@ -103,7 +147,6 @@ def get_response(question):
             max_tokens=300
         )
         
-        # Corrected line
         summarized_material = summary_response.choices[0].message.content.strip()
 
         # Define the initial messages for the conversation, ensuring they are concise
@@ -157,7 +200,6 @@ def get_response(question):
             presence_penalty=0
         )
 
-        # Corrected line
         processed = response.choices[0].message.content.strip()
         return processed
     
@@ -170,11 +212,10 @@ def get_response(question):
         # Handle other OpenAI API errors
         print(f"OpenAI API error: {e}")
         return f"OpenAI API error: {e}"
-    
 
 @bp.route("/flashcards", methods=['GET', 'POST'])
 def flashcards():
-    file_path = 'instance/texts/text.txt'  # Adjust the path to your TXT file
+    file_path = os.path.join(current_app.instance_path, 'texts', 'text.txt')  # Adjust the path to your TXT file
     text = read_file_with_multiple_encodings(file_path)[0]
 
     # Generate flashcards from the text
@@ -186,19 +227,13 @@ def flashcards():
     # Render the template with the flashcards data
     return render_template("student/flashcards.html", flashcards=flashcards)
 
-
 @bp.route("/flashcards", methods=['GET'])
 def flashcards_get():
-    file_path = 'instance/texts/text.txt'  # Adjust the path to your TXT file
+    file_path = os.path.join(current_app.instance_path, 'texts', 'text.txt')
     text = read_file_with_multiple_encodings(file_path)[0]
-    flashcards = generate_flashcards(text) or []  # Ensure flashcards is a list
 
-    return render_template("student/flashcards.html", flashcards=flashcards)
+    # Generate flashcards from the text
+    flashcards = generate_flashcards(text) or []
 
-@bp.route("/flashcards", methods=['POST'])
-def flashcards_post():
-    file_path = 'instance/texts/text.txt'  # Adjust the path to your TXT file
-    text = read_file_with_multiple_encodings(file_path)[0]
-    flashcards = generate_flashcards(text) or []  # Ensure flashcards is a list
-
+    # Render the template with the flashcards data
     return render_template("student/flashcards.html", flashcards=flashcards)

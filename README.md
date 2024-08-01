@@ -10,14 +10,14 @@ sudo apt install python3.12.4
  ```
 For MacOS:
 ```bash
-brew install python@3.11
+brew install python@3.12.4
 ```
 I myself used Windows and Visual Studio Code to install python. You can download VSC here:
 ```bash
 https://code.visualstudio.com/download
 ```
 I also installed the extensions for SQLite Viewer and SQLite by alexcuzz in VSC.
-### Dependencies
+### Requirements
 Make sure you clone the repository properly. After that create a virtual environment with
 ```bash
 python -m venv venv
@@ -26,7 +26,28 @@ Get all the necessary requirements:
 ```bash
 pip install -r requirements.txt
 ```
-###Running the Project
+### Database
+Next you have to set up the database. For **Windows** use:
+```bash
+set FLASK_APP=run.py
+$env:FLASK_APP = "run.py"
+flask init-db
+```
+After that, the database should be set up.
+### Environment
+As for the environment, create a new fine called **.env**. This file should contain the following information:
+```bash
+APP="run.py"
+ENVIRONMENT="Development"
+FLASK_SECRET_KEY="YOUR_FLASK_SECRET_KEY" #random key with characters and numbers
+FLASK_SQLALCHEMY_DATABASE_URI="sqlite:///user.sqlite"
+OPENAI="YOUR_OPENAI_API_KEY" #for that you have to create an own API. Please check the website of Openai for that
+SECURITY_PASSWORD_SALT = "YOUR_SECURITY_PASSWORD_SALT" #random key with characters and numbers
+BYTES = 749000
+FOLDER = "board\static\pdfs"
+```
+Now you are all set up! 
+### Running the Project
 To start the website, use
 ```bash
 python run.py
