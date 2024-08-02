@@ -6,8 +6,6 @@ import PyPDF2
 
 bp = Blueprint("teacher", __name__)
 
-
-
 @bp.route('/teacher_landing')
 @login_required
 def landing():
@@ -24,7 +22,14 @@ def upload():
 def upload_file():
     if request.method == 'POST':
         f = request.files['file']
-        upload_path = os.path.join(current_app.instance_path, 'pdfs', secure_filename(f.filename))
+        pdf_folder = os.path.join(current_app.instance_path, 'pdfs')
+        text_folder = os.path.join(current_app.instance_path, 'texts')
+
+        # Create directories if they don't exist
+        os.makedirs(pdf_folder, exist_ok=True)
+        os.makedirs(text_folder, exist_ok=True)
+
+        upload_path = os.path.join(pdf_folder, secure_filename(f.filename))
         f.save(upload_path)
         
         # Open the saved file for reading
@@ -36,10 +41,10 @@ def upload_file():
             text = ""
             for page_num in range(num_pages):
                 pageobj = pdfreader.getPage(page_num)
-                text += pageobj.extract_text()  # Note: use extract_text() instead of extractText() for PyPDF2 v2.x+
+                text += pageobj.extractText()  
             
             # Write the extracted text to a file
-            text_path = os.path.join(current_app.instance_path, 'texts', 'text.txt')
+            text_path = os.path.join(text_folder, 'text.txt')
             with open(text_path, 'a', encoding='utf-8') as file1:
                 file1.write(text)
         

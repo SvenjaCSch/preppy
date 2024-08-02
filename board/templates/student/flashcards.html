@@ -3,13 +3,12 @@
 {% block content %}
 <div class="flashcards_container">
     <h1>Flashcards</h1>
-    <form action="{{ url_for('student.flashcards_post') }}" method="post">
+    <form action="{{ url_for('student.flashcards') }}" method="post">
         <button type="submit" class="generate-btn">Generate Flashcards</button>
     </form>
-    <a href="{{ url_for('student.flashcards_get') }}" class="view-flashcards">View Flashcards</a>
 
     <!-- Store flashcards data in a data attribute -->
-    <div id="flashcards" data-flashcards="{{ flashcards | tojson | safe }}" style="display:none;"></div>
+    <div id="flashcards" data-flashcards="{{ flashcards | tojson | safe }}"></div>
 
     <div class="flashcard" id="flashcard">
         <div class="front">

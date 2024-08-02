@@ -3,6 +3,6 @@ Flask==3.0.3
 Flask_Login==0.6.3
 flask_sqlalchemy==3.1.1
 openai==1.37.1
-PyPDF2==3.0.1
+PyPDF2==1.26.0
 python-dotenv==1.0.1
 Werkzeug==3.0.3

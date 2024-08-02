@@ -3,6 +3,7 @@ from flask_login import login_required, current_user
 from openai import OpenAI
 import openai
 import os
+import json
 
 bp = Blueprint("student", __name__)
 
@@ -29,8 +30,6 @@ def read_file_with_multiple_encodings(filepath, encodings=['utf-8', 'ISO-8859-1'
                 # Remove headers and footers if they are in the first and last 1000 characters
                 text_lines = text.split('\n')
                 text_lines = text_lines[10:-10]
-
-                # Combine back to text
                 text = '\n'.join(text_lines)
 
                 # Remove references section assuming it starts with 'References' or 'REFERENCES'
@@ -52,7 +51,6 @@ def read_file_with_multiple_encodings(filepath, encodings=['utf-8', 'ISO-8859-1'
 
 # Function to extract text from a PDF (placeholder)
 def extract_text_from_pdf(pdf_path):
-    # Implement your PDF extraction logic here
     extracted_text = "Sample text extracted from PDF."  # Replace with actual extracted text
     return extracted_text
 
@@ -91,11 +89,17 @@ def upload_pdf():
 # Flashcards
 #####################################################
 
-def generate_flashcards(text):
+#####################################################
+# Flashcards
+#####################################################
+
+def get_flashcards(text):
     chunks = text.split('\n\n')
-    
+
+    # Limit to the first 10 chunks
+    flashcard_limit = 10
     flashcards = []
-    for chunk in chunks:
+    for chunk in chunks[:flashcard_limit]:
         prompt = f"Create a flashcard from the following text:\n\n{chunk}\n\nFlashcard:"
         response = client.chat.completions.create(
             model="gpt-3.5-turbo",
@@ -106,39 +110,40 @@ def generate_flashcards(text):
             max_tokens=150
         )
         flashcards.append(response.choices[0].message.content.strip())
-    
+
     return flashcards
 
 @bp.route("/flashcards", methods=['GET', 'POST'])
 def flashcards():
-    file_path = 'instance/texts/text.txt'  # Adjust the path to your TXT file
-    text = read_file_with_multiple_encodings(file_path)[0]
-
-    # Generate flashcards from the text
-    flashcards = generate_flashcards(text) or []  # Ensure flashcards is always a list
-
-    # Print the value of flashcards for debugging
-    print("Flashcards:", flashcards)  # Debugging line to see the contents of flashcards
-
-    # Render the template with the flashcards data
+    flashcards_folder = os.path.join(current_app.instance_path, 'flashcards')
+    os.makedirs(flashcards_folder, exist_ok=True)
+    file_path = os.path.join(current_app.instance_path, 'texts', 'text.txt')  # Adjust the path to your TXT file
+    
+    if request.method == 'POST':
+        with open(file_path, 'r', encoding='utf-8') as f:
+            text = f.read()
+        
+        flashcards = get_flashcards(text) or []
+        
+        upload_path = os.path.join(flashcards_folder, 'flashcards.json')
+        with open(upload_path, 'w', encoding='utf-8') as f:
+            json.dump(flashcards, f)
+        
+        return render_template("student/flashcards.html", flashcards=flashcards)
+    
+    # Handle GET request
+    upload_path = os.path.join(flashcards_folder, 'flashcards.json')
+    
+    # Load existing flashcards if needed
+    if os.path.exists(upload_path):
+        with open(upload_path, 'r', encoding='utf-8') as f:
+            flashcards = json.load(f)
+    else:
+        flashcards = []
+    
     return render_template("student/flashcards.html", flashcards=flashcards)
 
 
-@bp.route("/flashcards", methods=['GET'])
-def flashcards_get():
-    file_path = 'instance/texts/text.txt'  # Adjust the path to your TXT file
-    text = read_file_with_multiple_encodings(file_path)[0]
-    flashcards = generate_flashcards(text) or []  # Ensure flashcards is a list
-
-    return render_template("student/flashcards.html", flashcards=flashcards)
-
-@bp.route("/flashcards", methods=['POST'])
-def flashcards_post():
-    file_path = 'instance/texts/text.txt'  # Adjust the path to your TXT file
-    text = read_file_with_multiple_encodings(file_path)[0]
-    flashcards = generate_flashcards(text) or []  # Ensure flashcards is a list
-
-    return render_template("student/flashcards.html", flashcards=flashcards)
 
 #####################################################
 # Login
@@ -200,7 +205,7 @@ def get_response(question):
         initial_messages = [
             {
                 "role": "system",
-                "content": f"You are a STEM teacher. Explain concepts simply. This is the course material: {summarized_material}"
+                "content": f"You are a STEM teacher. Answer the question accuarately. Explain concepts behind in a simple way with easy examples. Your students are in the age between 12 and 15. This is the course material: {summarized_material}"
             },
             {
                 "role": "user",
