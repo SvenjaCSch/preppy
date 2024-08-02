@@ -12,6 +12,10 @@ client = OpenAI(
 
 history = []
 
+#####################################################
+# Upload
+#####################################################
+
 def read_file_with_multiple_encodings(filepath, encodings=['utf-8', 'ISO-8859-1', 'cp1252']):
     if not os.path.exists(filepath):
         print(f"File {filepath} does not exist.")
@@ -83,6 +87,10 @@ def upload_pdf():
 
     return redirect(url_for('student.landing'))
 
+#####################################################
+# Flashcards
+#####################################################
+
 def generate_flashcards(text):
     chunks = text.split('\n\n')
     
@@ -101,12 +109,51 @@ def generate_flashcards(text):
     
     return flashcards
 
+@bp.route("/flashcards", methods=['GET', 'POST'])
+def flashcards():
+    file_path = 'instance/texts/text.txt'  # Adjust the path to your TXT file
+    text = read_file_with_multiple_encodings(file_path)[0]
+
+    # Generate flashcards from the text
+    flashcards = generate_flashcards(text) or []  # Ensure flashcards is always a list
+
+    # Print the value of flashcards for debugging
+    print("Flashcards:", flashcards)  # Debugging line to see the contents of flashcards
+
+    # Render the template with the flashcards data
+    return render_template("student/flashcards.html", flashcards=flashcards)
+
+
+@bp.route("/flashcards", methods=['GET'])
+def flashcards_get():
+    file_path = 'instance/texts/text.txt'  # Adjust the path to your TXT file
+    text = read_file_with_multiple_encodings(file_path)[0]
+    flashcards = generate_flashcards(text) or []  # Ensure flashcards is a list
+
+    return render_template("student/flashcards.html", flashcards=flashcards)
+
+@bp.route("/flashcards", methods=['POST'])
+def flashcards_post():
+    file_path = 'instance/texts/text.txt'  # Adjust the path to your TXT file
+    text = read_file_with_multiple_encodings(file_path)[0]
+    flashcards = generate_flashcards(text) or []  # Ensure flashcards is a list
+
+    return render_template("student/flashcards.html", flashcards=flashcards)
+
+#####################################################
+# Login
+#####################################################
+
 @bp.route('/student_landing')
 @login_required
 def landing():
     if current_user.role != 'student':
         return redirect(url_for('auth.login'))
     return render_template("student/landing.html", name=current_user.name)
+
+#####################################################
+# Chatbot
+#####################################################
 
 @bp.route("/chatbot", methods=['GET', 'POST'])
 @login_required
@@ -213,27 +260,3 @@ def get_response(question):
         print(f"OpenAI API error: {e}")
         return f"OpenAI API error: {e}"
 
-@bp.route("/flashcards", methods=['GET', 'POST'])
-def flashcards():
-    file_path = os.path.join(current_app.instance_path, 'texts', 'text.txt')  # Adjust the path to your TXT file
-    text = read_file_with_multiple_encodings(file_path)[0]
-
-    # Generate flashcards from the text
-    flashcards = generate_flashcards(text) or []  # Ensure flashcards is always a list
-
-    # Print the value of flashcards for debugging
-    print("Flashcards:", flashcards)  # Debugging line to see the contents of flashcards
-
-    # Render the template with the flashcards data
-    return render_template("student/flashcards.html", flashcards=flashcards)
-
-@bp.route("/flashcards", methods=['GET'])
-def flashcards_get():
-    file_path = os.path.join(current_app.instance_path, 'texts', 'text.txt')
-    text = read_file_with_multiple_encodings(file_path)[0]
-
-    # Generate flashcards from the text
-    flashcards = generate_flashcards(text) or []
-
-    # Render the template with the flashcards data
-    return render_template("student/flashcards.html", flashcards=flashcards)
