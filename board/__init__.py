@@ -3,6 +3,7 @@ from dotenv import load_dotenv
 from flask import Flask, request, session, current_app
 from flask_sqlalchemy import SQLAlchemy
 from flask_login import LoginManager, current_user
+from typing import Any
 
 # Load environment variables
 load_dotenv()
@@ -10,7 +11,7 @@ load_dotenv()
 # Initialize the SQLAlchemy database instance
 db = SQLAlchemy()
 
-def create_app():
+def create_app()->Any:
     app = Flask(__name__)
     app.config.from_prefixed_env()
     app.logger.setLevel("INFO")

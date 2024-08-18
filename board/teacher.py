@@ -8,18 +8,27 @@ bp = Blueprint("teacher", __name__)
 
 @bp.route('/teacher_landing')
 @login_required
-def landing():
+def landing()->str:
+    """
+    passes to landing page if teacher otherwise login page
+    """
     if current_user.role != 'teacher':
         return redirect(url_for('auth.login'))
     return render_template("teacher/landing.html", name=current_user.name)
 
 @bp.route('/upload')
 @login_required
-def upload():
+def upload()->str:
+    """
+    passes to upload page
+    """
     return render_template('teacher/upload.html')
 
 @bp.route('/upload', methods=['GET', 'POST'])
-def upload_file():
+def upload_file()->str:
+    """
+    uploads pdf and turns it into text
+    """
     if request.method == 'POST':
         f = request.files['file']
         pdf_folder = os.path.join(current_app.instance_path, 'pdfs')

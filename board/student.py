@@ -14,13 +14,19 @@ client = OpenAI(
 history = []
 
 #####################################################
-# Upload
+# Flashcards
 #####################################################
-
-def read_file_with_multiple_encodings(filepath, encodings=['utf-8', 'ISO-8859-1', 'cp1252']):
+def read_file_with_multiple_encodings(filepath:str, encodings:list[str]=['utf-8', 'ISO-8859-1', 'cp1252'])->str:
+    """
+    tests different ecodings to decode the text correctly
+    Arguments:
+        str: filepath
+        list[str]: encodings
+    """
     if not os.path.exists(filepath):
         print(f"File {filepath} does not exist.")
-        return "", ""  # Return empty values if the file doesn't exist
+        # Return empty values if the file doesn't exist
+        return "", ""  
 
     for encoding in encodings:
         try:
@@ -40,60 +46,24 @@ def read_file_with_multiple_encodings(filepath, encodings=['utf-8', 'ISO-8859-1'
                 return text.replace('\n', ' '), encoding
         except (UnicodeDecodeError, FileNotFoundError) as e:
             print(f"Failed to read file {filepath} with encoding {encoding}: {e}")
-            continue  # Try the next encoding
+            # Try the next encoding
+            continue  
+    # "utf-8",  encoding
+    # b"",  object (empty because we don't have the byte sequence)
+    # 0,  start position
+    # 0,  end position
     raise UnicodeDecodeError(
-        "utf-8",  # encoding
-        b"",  # object (empty because we don't have the byte sequence)
-        0,  # start position
-        0,  # end position
+        "utf-8",  
+        b"",
+        0,  
+        0,  
         f"Failed to decode file {filepath} with available encodings."
     )
 
-# Function to extract text from a PDF (placeholder)
-def extract_text_from_pdf(pdf_path):
-    extracted_text = "Sample text extracted from PDF."  # Replace with actual extracted text
-    return extracted_text
-
-@bp.route('/upload_pdf', methods=['POST'])
-@login_required
-def upload_pdf():
-    if 'pdf_file' not in request.files:
-        return redirect(url_for('student.landing'))
-
-    pdf_file = request.files['pdf_file']
-
-    if pdf_file.filename == '':
-        return redirect(url_for('student.landing'))
-
-    # Save the uploaded PDF to a specific location (e.g., instance/pdfs)
-    pdf_path = os.path.join(current_app.instance_path, 'pdfs', pdf_file.filename)
-    pdf_file.save(pdf_path)
-
-    # Extract text from the PDF
-    extracted_text = extract_text_from_pdf(pdf_path)
-
-    # Specify the path to the text file
-    file_path = os.path.join(current_app.instance_path, 'texts', 'text.txt')
-
-    # After extracting text from the PDF, make sure it's valid text
-    if extracted_text:  # Assuming extracted_text is the result from your PDF processing
-        with open(file_path, 'w', encoding='utf-8') as f:
-            f.write(extracted_text)
-        print("Extracted text written to:", file_path)
-    else:
-        print("No text was extracted from the PDF.")
-
-    return redirect(url_for('student.landing'))
-
-#####################################################
-# Flashcards
-#####################################################
-
-#####################################################
-# Flashcards
-#####################################################
-
-def get_flashcards(text):
+def get_flashcards(text:str)->list[str]:
+    """
+    returns text into flashcards
+    """
     chunks = text.split('\n\n')
 
     # Limit to the first 10 chunks
@@ -114,10 +84,15 @@ def get_flashcards(text):
     return flashcards
 
 @bp.route("/flashcards", methods=['GET', 'POST'])
-def flashcards():
+def flashcards()->str:
+    """
+    handles flashcards
+    work in progress
+    """
     flashcards_folder = os.path.join(current_app.instance_path, 'flashcards')
     os.makedirs(flashcards_folder, exist_ok=True)
-    file_path = os.path.join(current_app.instance_path, 'texts', 'text.txt')  # Adjust the path to your TXT file
+    # Adjust the path to your TXT file
+    file_path = os.path.join(current_app.instance_path, 'texts', 'text.txt')  
     
     if request.method == 'POST':
         with open(file_path, 'r', encoding='utf-8') as f:
@@ -143,15 +118,16 @@ def flashcards():
     
     return render_template("student/flashcards.html", flashcards=flashcards)
 
-
-
 #####################################################
 # Login
 #####################################################
 
 @bp.route('/student_landing')
 @login_required
-def landing():
+def landing()->str:
+    """
+    redirects to landing page if student. Otherwse login page
+    """
     if current_user.role != 'student':
         return redirect(url_for('auth.login'))
     return render_template("student/landing.html", name=current_user.name)
@@ -162,7 +138,10 @@ def landing():
 
 @bp.route("/chatbot", methods=['GET', 'POST'])
 @login_required
-def chatbot():
+def chatbot()->str:
+    """
+    handles chatbot response system
+    """
     answer = ""
     if request.method == 'POST':
         submitted_text = request.form['textbox']
@@ -171,18 +150,10 @@ def chatbot():
     
     return render_template("student/chatbot.html", message=history)
 
-@bp.route("/app_response", methods=['GET', 'POST'])
-def app_response():
-    answer = ""
-    submitted_text = request.args.get('text')
-    
-    if request.method == 'POST' or request.method == 'GET':
-        answer = get_response(submitted_text)
-        history.append((submitted_text, answer))
-    
-    return jsonify({"history": history})
-
-def get_response(question):
+def get_response(question:str)->str:
+    """
+    get the response via LLM depending on the users input
+    """
     try:
         # Read the prompt_extension when needed
         file_path = os.path.join(current_app.instance_path, 'texts', 'text.txt')

@@ -1,19 +1,29 @@
 import sqlite3
 import click
 from flask import current_app, g
+from typing import Any
 
-def init_app(app):
+def init_app(app)-> None:
+    """
+    close old db, creates new db
+    """
     app.teardown_appcontext(close_db)
     app.cli.add_command(init_db_command)
 
 @click.command("init-db")
-def init_db_command():
+def init_db_command()->None:
+    """
+    Initiates new db
+    """
     db = get_db()
     with current_app.open_resource("schema.sql") as f:
         db.executescript(f.read().decode("utf-8"))
     click.echo("You successfully initialized the database!")
 
 def get_db():
+    """
+    connets database according .env
+    """
     if "db" not in g:
         g.db = sqlite3.connect(
             current_app.config["SQLALCHEMY_DATABASE_URI"].replace('sqlite:///', 'instance/'),
@@ -23,7 +33,10 @@ def get_db():
 
     return g.db
 
-def close_db(e=None):
+def close_db(e:Any=None)->None:
+    """
+    Closes db
+    """
     db = g.pop("db", None)
 
     if db is not None:

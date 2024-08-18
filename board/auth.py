@@ -7,16 +7,20 @@ from . import db
 auth = Blueprint('auth', __name__)
 
 @auth.route('/login')
-def login():
+def login()->str:
+    """
+    passes to the login page
+    """
     return render_template('auth/login.html')
 
 @auth.route('/login', methods=['POST'])
-def login_post():
+def login_post()->str:
+    """
+    Takes the input of the user and redirects to the correct landing page
+    """
     email = request.form.get('email')
     password = request.form.get('password')
     remember = request.form.get('remember', 'false').lower() == 'true'
-
-    #flash(f"Login attempt for email: {email}")
 
     # Fetch the user based on the email
     user = User.query.filter_by(email=email).first()
@@ -35,7 +39,6 @@ def login_post():
 
     # Log the user in
     login_user(user, remember=remember)
-    #flash(f"User {email} logged in successfully.")
 
     # Debugging: Check user role
     flash(f"User role: {user.role}")  # This will display the user role
@@ -54,14 +57,19 @@ def login_post():
     else:
         flash("Unknown role for user, redirecting to login.")
         return redirect(url_for('auth.login'))
-
     
 @auth.route('/signup')
-def signup():
+def signup() -> str:
+    """
+    passes to signup page
+    """
     return render_template('auth/signup.html')
 
 @auth.route('/signup', methods=['POST'])
-def signup_post():
+def signup_post()->str:
+    """
+    takes imput from user and store them into database
+    """
     email = request.form.get('email')
     name = request.form.get('name')
     password = request.form.get('password')
@@ -80,10 +88,11 @@ def signup_post():
     flash(f"New user created: {email} with role: {role}")
     return redirect(url_for('auth.login'))
 
-
-
 @auth.route('/logout')
 @login_required
-def logout():
+def logout()->str:
+    """
+    logs out user
+    """
     logout_user()
     return redirect(url_for('pages.home'))

@@ -26,14 +26,6 @@ Get all the necessary requirements:
 ```bash
 pip install -r requirements.txt
 ```
-### Database
-Next you have to set up the database. For **Windows** use:
-```bash
-set FLASK_APP=run.py
-$env:FLASK_APP = "run.py"
-flask init-db
-```
-After that, the database should be set up.
 ### Environment
 As for the environment, create a new fine called **.env**. This file should contain the following information:
 ```bash
@@ -46,6 +38,14 @@ SECURITY_PASSWORD_SALT = "YOUR_SECURITY_PASSWORD_SALT" #random key with characte
 BYTES = 749000
 FOLDER = "board\static\pdfs"
 ```
+### Database
+Next you have to set up the database. For **Windows** use:
+```bash
+set FLASK_APP=run.py
+$env:FLASK_APP = "run.py"
+flask init-db
+```
+After that, the database should be set up.
 Now you are all set up! 
 ### Running the Project
 To start the website, use
@@ -146,61 +146,68 @@ Now I am using a openai API with the GPT-3.5.turbo model for the chatbot, the su
     - [ ] flashcards
 
 The folder are structured as showed:
-📦board
-- ┣ 📂static
-- ┃ ┣ 📂css
-- ┃ ┃ ┗ 📜styles.css
-- ┃ ┣ 📂images
-- ┃ ┃ ┣ 📜arrow-circle-left.png
-- ┃ ┃ ┣ 📜arrow-circle-up.png
-- ┃ ┃ ┣ 📜Background_header.png
-- ┃ ┃ ┣ 📜Backimage.png
-- ┃ ┃ ┣ 📜favicon-16x16.png
-- ┃ ┃ ┣ 📜house-chimney.png
-- ┃ ┃ ┣ 📜icons8-logout-50.png
-- ┃ ┃ ┣ 📜Login Student.png
-- ┃ ┃ ┣ 📜Logo.png
-- ┃ ┃ ┣ 📜Main Page.png
-- ┃ ┃ ┣ 📜Students Flashcards.png
-- ┃ ┃ ┗ 📜Students Landing Page.png
-- ┃ ┣ 📂js
-- ┃ ┃ ┣ 📜base.js
-- ┃ ┃ ┣ 📜chatbot.js
-- ┃ ┃ ┣ 📜flashcards.js
-- ┃ ┃ ┗ 📜upload.js
-- ┣ 📂templates
-- ┃ ┣ 📂auth
-- ┃ ┃ ┣ 📜index.html
-- ┃ ┃ ┣ 📜login.html
-- ┃ ┃ ┗ 📜signup.html
-- ┃ ┣ 📂errors
-- ┃ ┃ ┗ 📜404.html
-- ┃ ┣ 📂pages
-- ┃ ┃ ┣ 📜about.html
-- ┃ ┃ ┣ 📜home.html
-- ┃ ┃ ┗ 📜profile.html
-- ┃ ┣ 📂student
-- ┃ ┃ ┣ 📜chatbot.html
-- ┃ ┃ ┣ 📜flashcards.html
-- ┃ ┃ ┗ 📜landing.html
-- ┃ ┣ 📂teacher
-- ┃ ┃ ┣ 📜landing.html
-- ┃ ┃ ┗ 📜upload.html
-- ┃ ┣ 📜base.html
-- ┣ 📜auth.py
-- ┣ 📜database.py
-- ┣ 📜errors.py
-- ┣ 📜models.py
-- ┣ 📜pages.py
-- ┣ 📜schema.sql
-- ┣ 📜student.py
-- ┣ 📜teacher.py
-- ┗ 📜__init__.py
-- ┣ 📜.env
-- ┣ 📜.gitignore
-- ┣ 📜README.md
-- ┣ 📜requirements.txt
-- ┗ 📜run.py
+📦preppy
+┣ 📂board
+ ┃ ┣ 📂static
+ ┃ ┃ ┣ 📂css
+ ┃ ┃ ┃ ┗ 📜styles.css
+ ┃ ┃ ┣ 📂images
+ ┃ ┃ ┃ ┣ 📜arrow-circle-left.png
+ ┃ ┃ ┃ ┣ 📜arrow-circle-up.png
+ ┃ ┃ ┃ ┣ 📜Background_header.png
+ ┃ ┃ ┃ ┣ 📜Backimage.png
+ ┃ ┃ ┃ ┣ 📜favicon-16x16.png
+ ┃ ┃ ┃ ┣ 📜house-chimney.png
+ ┃ ┃ ┃ ┣ 📜icons8-logout-50.png
+ ┃ ┃ ┃ ┣ 📜Login Student.png
+ ┃ ┃ ┃ ┣ 📜Logo.png
+ ┃ ┃ ┃ ┣ 📜Main Page.png
+ ┃ ┃ ┃ ┣ 📜Students Flashcards.png
+ ┃ ┃ ┃ ┗ 📜Students Landing Page.png
+ ┃ ┃ ┗ 📂js
+ ┃ ┃ ┃ ┣ 📜base.js
+ ┃ ┃ ┃ ┣ 📜chatbot.js
+ ┃ ┃ ┃ ┗ 📜upload.js
+ ┃ ┣ 📂templates
+ ┃ ┃ ┣ 📂auth
+ ┃ ┃ ┃ ┣ 📜index.html
+ ┃ ┃ ┃ ┣ 📜login.html
+ ┃ ┃ ┃ ┗ 📜signup.html
+ ┃ ┃ ┣ 📂errors
+ ┃ ┃ ┃ ┗ 📜404.html
+ ┃ ┃ ┣ 📂pages
+ ┃ ┃ ┃ ┣ 📜about.html
+ ┃ ┃ ┃ ┣ 📜home.html
+ ┃ ┃ ┃ ┗ 📜profile.html
+ ┃ ┃ ┣ 📂student
+ ┃ ┃ ┃ ┣ 📜chatbot.html
+ ┃ ┃ ┃ ┣ 📜flashcards.html
+ ┃ ┃ ┃ ┗ 📜landing.html
+ ┃ ┃ ┣ 📂teacher
+ ┃ ┃ ┃ ┣ 📜landing.html
+ ┃ ┃ ┃ ┗ 📜upload.html
+ ┃ ┃ ┣ 📜base.html
+ ┃ ┃ ┗ 📜_navigation.html
+ ┃ ┣ 📜auth.py
+ ┃ ┣ 📜database.py
+ ┃ ┣ 📜errors.py
+ ┃ ┣ 📜models.py
+ ┃ ┣ 📜pages.py
+ ┃ ┣ 📜schema.sql
+ ┃ ┣ 📜student.py
+ ┃ ┣ 📜teacher.py
+ ┃ ┗ 📜__init__.py
+ ┣ 📂instance
+ ┃ ┣ 📂pdfs
+ ┃ ┃ ┗ 📜synsem-05-simple-noun-phrases.pdf
+ ┃ ┣ 📂texts
+ ┃ ┃ ┗ 📜text.txt
+ ┃ ┗ 📜db.sqlite
+ ┣ 📜.env
+ ┣ 📜.gitignore
+ ┣ 📜README.md
+ ┣ 📜requirements.txt
+ ┗ 📜run.py
 
 ## Limitations
 The limit of tokens is quite small. Therefore the uploaded data has to be summarized strongly. A better way to handle that is the RAG LLM which is not used here because of the extensive use of GPU that I could not provide.
